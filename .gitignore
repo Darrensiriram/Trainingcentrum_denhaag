@@ -47,6 +47,5 @@
 # Embedded web-server pid file
 /.web-server-pid
 
-/.
 .idea/
 /var/cache/
