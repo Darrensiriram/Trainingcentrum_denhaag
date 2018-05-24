@@ -16,14 +16,10 @@ use Symfony\Component\HttpFoundation\Response;
 class BezoekerController extends Controller
 {
     /**
-     * @Route("/home/{homePagina}")
+     * @Route("/home")
      */
-    public function BezoekerAction($homePagina)
+    public function BezoekerAction()
     {
-              $bericht = ['Welkom op onze webpagina Schrijf in voor een training',
-                  'Hier kunt alle informatie vinden over onze trainingen',
-                  'Nu in schrijven !'];
-
-               return $this->render('Bezoeker/bezoeker.html.twig', ['name' =>$homePagina, 'bericht' =>$bericht]);
+               return $this->render('Bezoeker/bezoeker.html.twig');
     }
 }
