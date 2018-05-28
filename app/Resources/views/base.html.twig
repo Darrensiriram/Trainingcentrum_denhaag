@@ -9,6 +9,18 @@
 
     <body>
 
+    <img src="{{asset('img/logo.png') }}">
+
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand active" href="{{ path('home') }}">Home</a>
+            <a class="navbar-brand" href="#">Trainings aanbod</a>
+            <a class="navbar-brand" href="#">Lid worden</a>
+            <a class="navbar-brand" href="#">Gedragregels</a>
+            <a class="navbar-brand" href="#">Contact</a>
+            <a class="btn btn-primary" href="{{ path('login') }}">login</a>
+        </div>
+    </nav>
 
 
         {% block body %}{% endblock %}

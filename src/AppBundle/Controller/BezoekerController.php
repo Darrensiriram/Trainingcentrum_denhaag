@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class BezoekerController extends Controller
 {
     /**
-     * @Route("/home")
+     * @Route("/home", name="home")
      */
     public function BezoekerAction()
     {
@@ -27,10 +27,10 @@ class BezoekerController extends Controller
     }
 
     /**
-     * @Route("/test")
+     * @Route("/admin", name="admin")
      */
-    public function testAction()
+    public function adminAction()
     {
-        return new Response('<html><head></head><body></body><h1>hallo</h1></html>');
+       return new Response('<html><body>Admin page!</body></html>');
     }
 }
