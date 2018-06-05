@@ -9,6 +9,8 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\lesson;
+use AppBundle\Entity\Training;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,4 +35,24 @@ class BezoekerController extends Controller
     {
        return new Response('<html><body>Admin page!</body></html>');
     }
+
+    /**
+     * @Route("/create", name="create")
+     */
+    public function createAction()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $product = new lesson();
+        $product->setMaxPersons('5');
+        $product->setLocation('DenHaag');
+
+        $entityManager->persist($product);
+        $entityManager->flush();
+
+        return new Response('Nieuwe waarde meegegeven! ' . $product->getId());
+    }
+
+
+
 }
