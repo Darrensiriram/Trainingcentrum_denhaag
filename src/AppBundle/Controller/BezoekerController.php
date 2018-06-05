@@ -11,8 +11,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\lesson;
 use AppBundle\Entity\Training;
+use AppBundle\Form\AanmeldType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class BezoekerController extends Controller
@@ -51,6 +53,17 @@ class BezoekerController extends Controller
         $entityManager->flush();
 
         return new Response('Nieuwe waarde meegegeven! ' . $product->getId());
+    }
+
+    /**
+     * @Route("/aanmelden", name="aanmelden")
+     */
+    public function newAction(Request $request)
+    {
+        $form=$this->createForm(AanmeldType::class);
+
+        return $this->render('Bezoeker/new.html.twig', [ 'aanmeldForm'=>$form->createView()
+        ]);
     }
 
 
