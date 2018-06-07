@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class BezoekerController extends Controller
 {
@@ -30,13 +31,7 @@ class BezoekerController extends Controller
                return $this->render('Bezoeker/bezoeker.html.twig', ['bericht' =>$bericht]);
     }
 
-    /**
-     * @Route("/admin", name="admin")
-     */
-    public function adminAction()
-    {
-       return new Response('<html><body>Admin page!</body></html>');
-    }
+
 
     /**
      * @Route("/create", name="create")
@@ -58,9 +53,24 @@ class BezoekerController extends Controller
     /**
      * @Route("/aanmelden", name="aanmelden")
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request ,UserPasswordEncoderInterface $passwordEncoder)
     {
+
         $form=$this->createForm(AanmeldType::class);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()&& $form->isValid())
+        {
+           $aanmeldform = $form->getData();
+            $password = $passwordEncoder->encodePassword($aanmeldform, $aanmeldform->getPlainPassword());
+            $aanmeldform->setPassword($password);
+           $aanmeldform->setRoles(array('ROLE_USER'));
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($aanmeldform);
+           $em->flush();
+           $this->addFlash('success', 'Bedankt voor het aanmelden');
+           return $this->redirectToRoute('home');
+        }
 
         return $this->render('Bezoeker/new.html.twig', [ 'aanmeldForm'=>$form->createView()
         ]);

@@ -1,0 +1,27 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block body %}
+    <table class="table" style="table-layout: fixed">
+        <thead>
+        <caption>Dit zijn alle lessen van het trainingcentrum</caption>
+        <tr>
+            <td>datum</td>
+            <td>Tijd</td>
+            <td>Locatie</td>
+            <td>max deelnemers</td>
+            <td>Les</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for lesson in lesson %}
+            <tr>
+                <td>{{ lesson.date|date("d-m-Y") }}</td>
+                <td>{{ lesson.time|date("H:I:S") }}</td>
+                <td>{{ lesson.location }}</td>
+                <td>{{ lesson.maxPersons }}</td>
+                <td>{{ lesson.beschrijving }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
